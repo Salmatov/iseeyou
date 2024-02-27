@@ -29,3 +29,4 @@ tests/_support/_generated
 
 #vagrant folder
 /.vagrant
+/access.txt
