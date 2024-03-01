@@ -2,24 +2,40 @@
 
 namespace app\controllers;
 
-use app\models\Mytable;
 use app\models\User;
 use Yii;
-use yii\rest\Controller;
 use app\dto\UserCreationDTO;
 use app\dto\UserUpdateDTO;
 use app\service\UserService;
+use yii\filters\AccessControl;
+use yii\rest\Controller;
 
 class UserController extends Controller
 {
 
-    public function actionAllUsers(){
+
+    public function actionUsers(){
+        $headers = Yii::$app->request->headers;
+        //$user = User::findIdentityByAccessToken($headers->get('token'));
+        $user = User::getByAuthKey($headers->get('token'));
+        Yii::$app->user->login($user);
+        if (Yii::$app->user->isGuest){
+            return "нет доступа";
+        }
         try {
             return UserService::getAll();
         }catch (\Exception $e) {
             //Yii::$app->response->setStatusCode($e->getCode());
             return ['error' => $e->getMessage()];
         }}
+
+    public function actionError(){
+        $exception = Yii::$app->errorHandler->exception;
+        if ($exception !== null) {
+            return $exception->getMessage();
+        }
+
+    }
 
     public function actionCreate(){
         $requestData = json_decode(Yii::$app->request->getRawBody());

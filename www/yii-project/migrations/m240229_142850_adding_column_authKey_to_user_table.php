@@ -20,24 +20,8 @@ class m240229_142850_adding_column_authKey_to_user_table extends Migration
      */
     public function safeDown()
     {
-        $this->dropColumn('user','authKey');
-        echo "m240229_142850_adding_column_authKey_to_user_table cannot be reverted.\n";
-
-        return false;
-    }
-
-    /*
-    // Use up()/down() to run migration code without a transaction.
-    public function up()
-    {
+        $this->dropColumn('user', 'authKey');
 
     }
 
-    public function down()
-    {
-        echo "m240229_142850_adding_column_authKey_to_user_table cannot be reverted.\n";
-
-        return false;
-    }
-    */
 }

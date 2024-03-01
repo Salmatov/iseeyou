@@ -12,6 +12,7 @@ $config = [
         '@npm'   => '@vendor/npm-asset',
     ],
     'components' => [
+        'authManager' => ['class' => 'yii\rbac\DbManager'],
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'BACJFSOatFM33ChWNNZYeJlqjRkiUFyQ',
@@ -24,7 +25,7 @@ $config = [
             'enableAutoLogin' => true,
         ],
         'errorHandler' => [
-            'errorAction' => 'site/error',
+            'errorAction' => 'user/error',
         ],
         'mailer' => [
             'class' => \yii\symfonymailer\Mailer::class,

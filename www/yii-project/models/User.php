@@ -3,9 +3,14 @@
 namespace app\models;
 
 use yii\db\ActiveRecord;
+use yii\web\IdentityInterface;
 
-class User extends ActiveRecord
+class User extends ActiveRecord implements IdentityInterface
 {
+
+    const ADMIN_ROLE = 'admin';
+    const MODERATOR_ROLE = 'moderator';
+    const USER_ROLE = 'user';
 
     public static function tableName()
     {
@@ -37,5 +42,40 @@ class User extends ActiveRecord
         return self::find()->all();
     }
 
+    public static function getRoles(): array{
+        return [
+            self::ADMIN_ROLE,
+            self::MODERATOR_ROLE,
+            self::USER_ROLE
+        ];
+    }
 
+    public static function getByAuthKey(string $authKey):User|null
+    {
+        return User::findOne(['authKey'=>$authKey,]);
+    }
+
+    public static function findIdentity($id)
+    {
+        return self::getById($id);
+    }
+
+    public static function findIdentityByAccessToken($token, $type = null)
+    {
+     //   return self::getByAuthKey($token);
+    }
+
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function getAuthKey()
+    {
+        return $this->authKey;
+    }
+    public function validateAuthKey($authKey)
+    {
+        return $this->authKey === $authKey;
+    }
 }
