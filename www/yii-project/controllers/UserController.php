@@ -10,22 +10,14 @@ use app\service\UserService;
 use yii\filters\AccessControl;
 use yii\rest\Controller;
 
-class UserController extends Controller
+class UserController extends BaseController
 {
 
-
-    public function actionUsers(){
-        $headers = Yii::$app->request->headers;
-        //$user = User::findIdentityByAccessToken($headers->get('token'));
-        $user = User::getByAuthKey($headers->get('token'));
-        Yii::$app->user->login($user);
-        if (Yii::$app->user->isGuest){
-            return "нет доступа";
-        }
+    public function actionAllUsers(){
         try {
             return UserService::getAll();
         }catch (\Exception $e) {
-            //Yii::$app->response->setStatusCode($e->getCode());
+            Yii::$app->response->setStatusCode($e->getCode());
             return ['error' => $e->getMessage()];
         }}
 
@@ -34,7 +26,6 @@ class UserController extends Controller
         if ($exception !== null) {
             return $exception->getMessage();
         }
-
     }
 
     public function actionCreate(){

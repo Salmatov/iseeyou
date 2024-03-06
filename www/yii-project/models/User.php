@@ -52,7 +52,8 @@ class User extends ActiveRecord implements IdentityInterface
 
     public static function getByAuthKey(string $authKey):User|null
     {
-        return User::findOne(['authKey'=>$authKey,]);
+        $user = User::findOne(['authKey'=>$authKey,]);
+        return $user;
     }
 
     public static function findIdentity($id)
@@ -62,7 +63,7 @@ class User extends ActiveRecord implements IdentityInterface
 
     public static function findIdentityByAccessToken($token, $type = null)
     {
-     //   return self::getByAuthKey($token);
+        return self::getByAuthKey($token);
     }
 
     public function getId()
