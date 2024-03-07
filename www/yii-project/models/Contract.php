@@ -41,24 +41,24 @@ class Contract extends ActiveRecord
             ->all();
     }
 
-    public static function getSumInitialPaymentByTimeIntervalAndStatus(int $residenceId, $startDate, $endDate, $status):float
-    {
-        return self::find()
-            ->leftJoin('apartment', 'apartment.id = contract.apartmentId')
-            ->andWhere(['between', 'createdAt', $startDate, $endDate])
-            ->andWhere(['status'=>$status])
-            ->andWhere(['apartment.residenceId' => $residenceId])
-            ->sum('initialPayment');
-    }
 
-    public static function getByResidentIdAndTimeIntervalAndStatus(int $residenceId, $startDate, $endDate, $status):array|null
+    public static function getByResidenceIdAndTimeIntervalAndStatusAndRooms(array $residenceId, $startDate, $endDate, $status, $roomFilter):array|null
     {
-        return self::find()
+        $query = self::find()
             ->leftJoin('apartment', 'apartment.id = contract.apartmentId')
             ->andWhere(['between', 'contract.createdAt', $startDate, $endDate])
             ->andWhere(['contract.status' => $status])
-            ->andWhere(['apartment.residenceId' => $residenceId])
-            ->all();
+            ->andWhere(['apartment.residenceId' => $residenceId]);
+        foreach ($roomFilter as $rooms) {
+            $query->orWhere([
+                'and',
+                ['apartment.rooms' => $rooms['rooms']],
+                ['apartment.isStudio' => (bool) $rooms['isStudio']]
+            ]);
+
+        }
+
+        return $query->all();
     }
 
     public static function getByNumber(int $number):array|null
