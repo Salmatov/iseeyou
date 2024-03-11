@@ -69,9 +69,4 @@ class ApartmentController extends Controller
             return ['error' => $e->getMessage()];
         }
     }
-
-    public function actionStatusList()
-    {
-        return ApartmentService::getStatusList();
-    }
 }

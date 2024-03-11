@@ -11,6 +11,22 @@ class SettingController extends Controller
     {
         $settings = [
             'installmentMax' => 60,
+            'contactStatusList' => [
+                'active',
+                'completed',
+                'termination_process',
+                'termination'
+            ],
+            'apartmentStatusList' => [
+                'sold',
+                'locked',
+                'sell'
+            ],
+            'eventTypeList' => [
+                'initial_payment',
+                'monthly_payment',
+                'refund'
+            ]
         ];
 
         return $settings;

@@ -70,9 +70,4 @@ class ContractController extends Controller
         }
     }
 
-    public function actionStatusList()
-    {
-        return ContractService::getStatusList();
-    }
-
 }

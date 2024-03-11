@@ -69,8 +69,4 @@ class PaymentEventController extends Controller
         }
     }
 
-    public function actionEventTypeList()
-    {
-        return PaymentEventService::getEventTypeList();
-    }
 }
