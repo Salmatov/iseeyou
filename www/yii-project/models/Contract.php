@@ -64,9 +64,9 @@ class Contract extends ActiveRecord
         return $query->all();
     }
 
-    public static function getByNumber(int $number):array|null
+    public static function getListByNumber(int $number):array|null
     {
-        return self::find()->where(['number'=>$number])->all();
+        return self::find()->andWhere(['like','contractNumber',$number])->all();
     }
 
     public static function getByContractNumber(int $contractNumber):Contract|null

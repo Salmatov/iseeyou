@@ -70,4 +70,9 @@ class ContractController extends Controller
         }
     }
 
+    public function actionContractList(int $number)//:array
+    {
+        return ContractService::getContractByNumber($number);
+    }
+
 }
