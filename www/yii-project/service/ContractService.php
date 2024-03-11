@@ -90,5 +90,10 @@ class ContractService
         return $contracts;
     }
 
+    public static function getStatusList():array
+    {
+        return Contract::getStatusList();
+    }
+
 
 }

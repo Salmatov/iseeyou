@@ -69,4 +69,9 @@ class ApartmentService
         return $apartments;
     }
 
+    public static function getStatusList(): array
+    {
+        return Apartment::getStatusList();
+    }
+
 }

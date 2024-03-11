@@ -68,4 +68,9 @@ class PaymentEventController extends Controller
             return ['error' => $e->getMessage()];
         }
     }
+
+    public function actionEventTypeList()
+    {
+        return PaymentEventService::getEventTypeList();
+    }
 }
