@@ -16,6 +16,11 @@ class Apartment extends ActiveRecord
         return 'apartment';
     }
 
+    public static function getApartmentByNumber(int $number): array
+    {
+        return static::find()->andWhere(['like','number', $number])->all();
+    }
+
     public function getResidence()
     {
         return $this->hasOne(ResidentialComplex::className(), ['id' => 'residenceId']);
