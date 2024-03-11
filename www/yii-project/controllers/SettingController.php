@@ -26,7 +26,12 @@ class SettingController extends Controller
                 'initial_payment',
                 'monthly_payment',
                 'refund'
-            ]
+            ],
+            'userRoleList' => [
+                'admin',
+                'moderator',
+                'user'
+            ],
         ];
 
         return $settings;
