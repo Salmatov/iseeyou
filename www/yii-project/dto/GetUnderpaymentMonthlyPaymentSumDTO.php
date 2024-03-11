@@ -2,17 +2,17 @@
 
 namespace app\dto;
 
-class GetUnderpaymentFirstPaymentSumDTO extends BaseDTO
+class GetUnderpaymentMonthlyPaymentSumDTO extends BaseDTO
 {
-    public array $residentialId;
+    public array $residenceId;
     public string $startDate;
     public string $endDate;
     public string $status;
     public array $roomsFilter;
 
-    public function __construct(array $config)
+    public function __construct($config)
     {
-        $this->residentialId = $config['residenceId']??[];
+        $this->residenceId = $config['residenceId']??[];
         $this->status = $config['status']??'';
         $this->roomsFilter = $config['roomsFilter']??[];
         if (isset($config['startDate'])) {
@@ -27,7 +27,6 @@ class GetUnderpaymentFirstPaymentSumDTO extends BaseDTO
         }else {
             $this->endDate = '';
         }
-
-
     }
+
 }

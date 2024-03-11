@@ -6,6 +6,7 @@ use app\dto\ApartmentCreationDTO;
 use app\dto\ApartmentUpdateDTO;
 use app\models\Apartment;
 use app\service\ApartmentService;
+use app\service\ContractService;
 use app\service\ResidentialComplexService;
 use Yii;
 use yii\rest\Controller;
@@ -68,5 +69,9 @@ class ApartmentController extends Controller
             Yii::$app->response->setStatusCode($e->getCode());
             return ['error' => $e->getMessage()];
         }
+    }
+    public function actionApartmentList(int $number):array
+    {
+        return ApartmentService::getApartmentByNumber($number);
     }
 }

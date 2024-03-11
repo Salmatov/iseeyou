@@ -53,11 +53,11 @@ class ResidentialComplexService
         return $residentialComplex;
     }
 
-    public static function getAll():array|null
+    public static function getAll():array
     {
         $residentialComplexes = ResidentialComplex::getAll();
-        if ($residentialComplexes == null) {
-            throw new \Exception("Не найдены жилые комплексы", 404);
+        if ($residentialComplexes === null) {
+            return [];
         }
         return $residentialComplexes;
     }

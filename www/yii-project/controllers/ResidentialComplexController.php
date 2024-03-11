@@ -52,13 +52,8 @@ class ResidentialComplexController extends Controller
         }
     }
 
-    public function actionAllResidentialComplexes()
+    public function actionAllResidentialComplexes(): array
     {
-        try {
             return ResidentialComplexService::getAll();
-        }catch (\Exception $e){
-            Yii::$app->response->setStatusCode($e->getCode());
-            return ['error' => $e->getMessage()];
-        }
     }
 }

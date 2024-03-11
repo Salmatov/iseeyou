@@ -104,4 +104,9 @@ class PaymentEventService
         return $sumAmount;
     }
 
+    public static function getEventTypeList(): array
+    {
+        return PaymentEvent::getEventTypeList();
+    }
+
 }

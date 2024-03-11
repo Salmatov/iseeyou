@@ -69,4 +69,18 @@ class ApartmentService
         return $apartments;
     }
 
+    public static function getStatusList(): array
+    {
+        return Apartment::getStatusList();
+    }
+
+    public static function getApartmentByNumber(int $number): array
+    {
+        $apartment = Apartment::getApartmentByNumber($number);
+        if ($apartment===null) {
+            return [];
+        }
+        return $apartment;
+    }
+
 }

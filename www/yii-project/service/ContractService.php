@@ -90,5 +90,19 @@ class ContractService
         return $contracts;
     }
 
+    public static function getStatusList():array
+    {
+        return Contract::getStatusList();
+    }
+
+    public static function getContractByNumber(int $number):array|null
+    {
+        $contractList = Contract::getListByNumber($number);
+        if ($contractList == null) {
+            return [];
+        }
+        return $contractList;
+    }
+
 
 }
