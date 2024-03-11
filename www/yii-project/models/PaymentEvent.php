@@ -23,16 +23,18 @@ class PaymentEvent extends ActiveRecord
 
     public static function getById(int $id):PaymentEvent|null
     {
-        return self::findOne($id);
+        return self::findOne(['contractId' => $id]);
     }
 
     public static function getByArrayContractId(array $contractId, string $paymentType, string$startDate, string$endDate):array|null
     {
-        return self::find()
+        $query = self::find()
         ->andWhere(['contractId' => $contractId])
-        ->andWhere(['between', 'createdAt', $startDate, $endDate])
-        ->andWhere(['paymentType' => $paymentType])
-        ->all();
+        ->andWhere(['paymentType' => $paymentType]);
+        if ($startDate && $endDate != ''){
+            $query->andWhere(['between', 'createdAt', $startDate, $endDate]);
+        }
+        return $query->all();
     }
 
     public static function getAll():array|null
