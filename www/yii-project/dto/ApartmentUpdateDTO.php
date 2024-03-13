@@ -8,8 +8,8 @@ class ApartmentUpdateDTO extends BaseDTO
     public int $number;
     public float $square;
     public int $rooms;
-    public bool $is_studio;
-    public int $residence_id;
+    public bool $isStudio;
+    public int $residenceId;
     public string $status;
 
     public function __construct(mixed $apartmentData)
@@ -18,8 +18,8 @@ class ApartmentUpdateDTO extends BaseDTO
         $this->number = $apartmentData->number;
         $this->square = $apartmentData->square;
         $this->rooms = $apartmentData->rooms;
-        $this->is_studio = $apartmentData->isStudio;
-        $this->residence_id = $apartmentData->residenceId;
+        $this->isStudio = $apartmentData->isStudio;
+        $this->residenceId = $apartmentData->residenceId;
         $this->status = $apartmentData->status;
     }
 
