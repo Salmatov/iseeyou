@@ -47,7 +47,6 @@ class UserService
         }
         $user->username = $userUpdateDTO->username;
         $user->email = $userUpdateDTO->email;
-        $user->roles = $userUpdateDTO->roles;
         if (!UserService::validateEnteredPassword($userUpdateDTO->password, $user->password)) {
             $user->password = Yii::$app->security->generatePasswordHash($userUpdateDTO->password);
         }
@@ -96,10 +95,10 @@ class UserService
         return $user;
     }
 
-    public static function getByAuthKey(string $authKey, bool $throwExceptionIfNotFound = true): User|array|null{
-        $user = User::getByAuthKey($authKey);
+    public static function getByAccessToken(string $accessToken, bool $throwExceptionIfNotFound = true): User|array|null{
+        $user = User::findIdentityByAccessToken($accessToken);
         if ($user == null && $throwExceptionIfNotFound) {
-            throw new \Exception("Пользователь с таким authKey не найден", 404);
+            throw new \Exception("Пользователь с таким token не найден", 404);
         }
         return $user;
     }
@@ -121,7 +120,6 @@ class UserService
             throw new \Exception("Пользователь с таким email уже существует", 409);
         }
         $user->setAttributes($registrationUserDTO->attributes, false);
-        $user->roles = User::USER_ROLE;
         $user->password = Yii::$app->security->generatePasswordHash($registrationUserDTO->password);
         $user->save();
         return $user;
@@ -137,18 +135,18 @@ class UserService
         if (!self::validateEnteredPassword($authorizationDTO->password, $user->password)) {
             throw new \Exception("Неверный пароль", 401);
         }
-        $user->authKey = Yii::$app->security->generateRandomString();
+        $user->accessToken = Yii::$app->security->generateRandomString();
         $user->save();
         return $user;
     }
 
-    public static function Logout(string $authKey)
+    public static function Logout(string $accessToken)
     {
-        $user = self::getByAuthKey($authKey, false);
+        $user = self::getByAccessToken($accessToken, false);
         if ($user == null) {
             throw new \Exception("Вы не авторизованы", 401);
         }
-        $user->authKey = null;
+        $user->accessToken = null;
         $user->save();
 
     }

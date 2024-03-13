@@ -54,9 +54,9 @@ class m240228_105004_create_basic_tables extends Migration
         $this->createTable('user', [
             'id' => $this->primaryKey(),
             'username' => $this->string()->notNull(),
-            'roles' => $this->string(50)->notNull(),
             'email' => $this->string()->notNull()->unique(),
             'password' => $this->string()->notNull(),
+            'accessToken' => $this->string()->notNull()->unique()
         ]);
         $this->createIndex('idx-contract-contractNumber', 'contract', 'contractNumber', true);
 

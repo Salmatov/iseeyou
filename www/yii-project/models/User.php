@@ -17,6 +17,12 @@ class User extends ActiveRecord implements IdentityInterface
         return 'user';
     }
 
+    public function getRole()
+    {
+        return $this->hasOne(Role::class, ['user_id' => 'id']);
+
+    }
+
     public static function getById($id) : User|null
     {
         return self::findOne($id);
@@ -41,7 +47,7 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return self::find()->all();
     }
-
+/*
     public static function getRoles(): array{
         return [
             self::ADMIN_ROLE,
@@ -49,6 +55,7 @@ class User extends ActiveRecord implements IdentityInterface
             self::USER_ROLE
         ];
     }
+*/
 
     public static function getByAuthKey(string $authKey):User|null
     {
@@ -63,7 +70,7 @@ class User extends ActiveRecord implements IdentityInterface
 
     public static function findIdentityByAccessToken($token, $type = null)
     {
-        return self::getByAuthKey($token);
+        return self::findOne(['accessToken'=>$token,]);
     }
 
     public function getId()

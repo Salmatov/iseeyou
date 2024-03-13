@@ -28,7 +28,7 @@ class BaseController extends Controller
             ],
 
             */
-
+/*
             'access' => [
                 'class' => AccessControl::class,
                 'rules' => [
@@ -39,6 +39,9 @@ class BaseController extends Controller
                     ],
                 ],
             ],
+*/
+
+
         ];
     }
 
