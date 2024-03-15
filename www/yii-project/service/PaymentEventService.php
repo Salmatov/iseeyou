@@ -18,7 +18,7 @@ class PaymentEventService
         $paymentEvent = new PaymentEvent();
         $paymentEvent->setAttributes($paymentEventCreateDTO->attributes, false);
         try {
-            Contract::getById($paymentEventCreateDTO->contractId);
+            ContractService::getById($paymentEventCreateDTO->contractId);
         } catch (\Exception $e) {
             throw new \Exception("Невозможно создать событие платежа. Договор не найден",400);
         }
@@ -40,6 +40,11 @@ class PaymentEventService
         }
         $paymentEvent->setAttributes($paymentEventUpdateDTO->attributes, false);
         $paymentEvent->createdAt = $paymentEvent->createdAt->format('Y-m-d H:i:s');
+        try {
+            ContractService::getById($paymentEventUpdateDTO->contractId);
+        } catch (\Exception $e) {
+            throw new \Exception("Невозможно создать событие платежа. Договор не найден",400);
+        }
         if(!in_array($paymentEvent->paymentType, PaymentEvent::getEventTypeList())){
             throw new \Exception("Недопустимый тип события",400);
         }
