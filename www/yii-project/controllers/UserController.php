@@ -34,7 +34,7 @@ class UserController extends BaseController
         try {
             return UserService::createUser($userCreationDTO);
         }catch (\Exception $e) {
-            Yii::$app->response->setStatusCode($e->getCode());
+            //Yii::$app->response->setStatusCode($e->getCode());
             return ['error' => $e->getMessage()];
         }
     }
