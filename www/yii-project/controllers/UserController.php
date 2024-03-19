@@ -15,7 +15,16 @@ class UserController extends BaseController
 
     public function actionAllUsers(){
         try {
-            return UserService::getAll();
+
+            $users = UserService::getAll();
+
+            $response = Yii::$app->getResponse();
+
+            $response->headers->set('Cache-Control', 'max-age=0, no-cache, no-store');
+            $response->headers->set('Pragma', 'no-cache');
+
+            $response->send();
+            return $users;
         }catch (\Exception $e) {
             Yii::$app->response->setStatusCode($e->getCode());
             return ['error' => $e->getMessage()];
