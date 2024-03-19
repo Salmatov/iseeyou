@@ -21,7 +21,7 @@ class ResidentialComplexController extends Controller
             $residentialComplexCreationDTO = new ResidentialComplexCreationDTO($complexData);
             $residentialComplex = ResidentialComplexService::create($residentialComplexCreationDTO);
         }catch (\Exception $e){
-            Yii::$app->response->setStatusCode($e->getCode());
+            //Yii::$app->response->setStatusCode($e->getCode());
             return ['error' => $e->getMessage()];
         }
         return $residentialComplex;
@@ -35,7 +35,7 @@ class ResidentialComplexController extends Controller
             $residentialComplexUpdateDTO = new ResidentialComplexUpdateDTO($complexData);
             $residentialComplex = ResidentialComplexService::update($residentialComplexUpdateDTO);
         }catch (\Exception $e){
-            Yii::$app->response->setStatusCode($e->getCode());
+            //Yii::$app->response->setStatusCode($e->getCode());
             return ['error' => $e->getMessage()];
         }
         return $residentialComplex;
@@ -47,7 +47,7 @@ class ResidentialComplexController extends Controller
         try {
             ResidentialComplexService::delete($id);
         }catch (\Exception $e){
-            Yii::$app->response->setStatusCode($e->getCode());
+//            Yii::$app->response->setStatusCode($e->getCode());
             return ['error' => $e->getMessage()];
         }
     }
